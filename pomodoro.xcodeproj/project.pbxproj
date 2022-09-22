@@ -11,6 +11,8 @@
 		2EE5801028DC144F0091BEAD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5800F28DC144F0091BEAD /* ContentView.swift */; };
 		2EE5801228DC14520091BEAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE5801128DC14520091BEAD /* Assets.xcassets */; };
 		2EE5801528DC14520091BEAD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EE5801428DC14520091BEAD /* Preview Assets.xcassets */; };
+		2EE5801E28DC14EB0091BEAD /* PomodoroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5801D28DC14EB0091BEAD /* PomodoroModel.swift */; };
+		2EE5802028DC15DB0091BEAD /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5801F28DC15DB0091BEAD /* Home.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		2EE5800F28DC144F0091BEAD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2EE5801128DC14520091BEAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EE5801428DC14520091BEAD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2EE5801D28DC14EB0091BEAD /* PomodoroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroModel.swift; sourceTree = "<group>"; };
+		2EE5801F28DC15DB0091BEAD /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,8 @@
 		2EE5800C28DC144F0091BEAD /* pomodoro */ = {
 			isa = PBXGroup;
 			children = (
+				2EE5801C28DC14CD0091BEAD /* ViewModel */,
+				2EE5801B28DC14C70091BEAD /* Views */,
 				2EE5800D28DC144F0091BEAD /* pomodoroApp.swift */,
 				2EE5800F28DC144F0091BEAD /* ContentView.swift */,
 				2EE5801128DC14520091BEAD /* Assets.xcassets */,
@@ -65,6 +71,22 @@
 				2EE5801428DC14520091BEAD /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2EE5801B28DC14C70091BEAD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2EE5801F28DC15DB0091BEAD /* Home.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2EE5801C28DC14CD0091BEAD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2EE5801D28DC14EB0091BEAD /* PomodoroModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +159,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EE5801E28DC14EB0091BEAD /* PomodoroModel.swift in Sources */,
 				2EE5801028DC144F0091BEAD /* ContentView.swift in Sources */,
+				2EE5802028DC15DB0091BEAD /* Home.swift in Sources */,
 				2EE5800E28DC144F0091BEAD /* pomodoroApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
