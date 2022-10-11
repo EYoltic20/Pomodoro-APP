@@ -64,7 +64,7 @@ struct Home: View {
                     .frame(height:proxy.size.width)
                     .rotationEffect(.init(degrees: -90))
                     .animation(.easeIn, value: pomodoroModel.progress)
-//                    MARK : PLAY BUTTON
+                    //                    MARK : PLAY BUTTON
                     
                     Button{
                         if pomodoroModel.isStarted{
@@ -88,12 +88,120 @@ struct Home: View {
                 .frame(maxWidth:.infinity,maxHeight: .infinity,alignment: .center)
             }
             
-        }.padding()
-            .preferredColorScheme(.light)
+        }
+        .padding()
+        .preferredColorScheme(.light)
+        .overlay(content: {
+            ZStack{
+                Color.black
+                    .opacity(pomodoroModel.addNewTimer ? 0.25 : 0 )
+                    .onTapGesture {
+                        pomodoroModel.addNewTimer = false
+                    }
+                NewTimer()
+                    .frame(maxHeight:.infinity,alignment: .bottom)
+                    .offset(y:pomodoroModel.addNewTimer ? 0 : 400)
+
+                
+            }
+            .animation(.easeInOut, value: pomodoroModel.addNewTimer)
+        })
         
     }
-//    MARK : new timer botton sheer
-    
+    //    MARK : new timer botton sheer
+    @ViewBuilder // -> MARK: - QUE ES
+    func NewTimer() ->some View{
+        VStack(spacing:15){
+            Text("Add timer")
+                .foregroundColor(.white)
+                .padding(.top,10)
+            
+            HStack(spacing:25){
+                Text("\(pomodoroModel.hour) hr")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color("Letras"))
+                    .padding(.vertical,12)
+                    .padding(.horizontal,30)
+                    .background{
+                        Capsule()
+                            .fill(.white.opacity(0.7))
+                        
+                    }
+                    .contextMenu{
+                        contextMenuOpt(maxValue: 12, hint: "hr"){ value in
+                            pomodoroModel.hour = value
+                        }
+                    }
+                Text("\(pomodoroModel.minute) min")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color("Letras"))
+                    .padding(.vertical,12)
+                    .padding(.horizontal,30)
+                    .background{
+                        Capsule()
+                            .fill(.white.opacity(0.7))
+                        
+                    }
+                    .contextMenu{
+                        contextMenuOpt(maxValue: 60, hint: "min"){ value in
+                            pomodoroModel.minute = value
+                        }
+                    }
+                Text("\(pomodoroModel.seconds) sec")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color("Letras"))
+                    .padding(.vertical,12)
+                    .padding(.horizontal,30)
+                    .background{
+                        Capsule()
+                            .fill(.white.opacity(0.7))
+                        
+                    }
+                    .contextMenu{
+                        contextMenuOpt(maxValue: 60, hint: "sec"){ value in
+                            pomodoroModel.seconds = value
+                        }
+                    }
+            }
+            .padding(.top,20)
+            Button{
+                
+            }label: {
+                Text("Save")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding(.vertical)
+                    .padding(.horizontal,100)
+                    .background{
+                        Capsule()
+                            .fill(Color("Letras"))
+                    }
+            }
+            .disabled(pomodoroModel.seconds == 0)
+            .opacity(pomodoroModel.seconds == 0 ? 0.5 : 1)
+            .padding(.top)
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background{
+            RoundedRectangle(cornerRadius: 10,style: .continuous)
+                .fill(Color("Azul"))
+                .ignoresSafeArea()
+        }
+    }
+    //    MARK: Reusable context menu
+    @ViewBuilder
+    func contextMenuOpt(maxValue:Int,hint:String, onClick: @escaping (Int)->())->some View{
+        ForEach(0...maxValue,id:\.self){ value in
+            Button("\(value) \(hint)"){
+                onClick(value)
+            }
+        }
+    }
 }
 
 struct Home_Previews: PreviewProvider {

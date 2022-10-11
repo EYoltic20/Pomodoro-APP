@@ -13,6 +13,7 @@ class PomodoroModel : NSObject,ObservableObject{
     @Published var timerString : String = "11:00"
     @Published var isStarted : Bool = false
     @Published var addNewTimer : Bool = false
+    
     @Published var hour : Int = 0
     @Published var minute : Int = 0
     @Published var seconds : Int = 0 
