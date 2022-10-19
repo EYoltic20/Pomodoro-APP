@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Home: View {
     @EnvironmentObject var pomodoroModel : PomodoroModel
+    @State private var btnActive = false
     var body: some View {
         VStack{
             Text("Pomodoro Timer")
@@ -68,7 +69,8 @@ struct Home: View {
                     
                     Button{
                         if pomodoroModel.isStarted{
-                            
+                            pomodoroModel.stopTime()
+                            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                         }else{
                             pomodoroModel.addNewTimer = true
                         }
@@ -106,7 +108,21 @@ struct Home: View {
             }
             .animation(.easeInOut, value: pomodoroModel.addNewTimer)
         })
-        
+        .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()){
+            _ in
+            if pomodoroModel.isStarted{
+                pomodoroModel.updateTimer()
+            }
+        }
+        .alert("El tiempo acabo ", isPresented: $pomodoroModel.isFinished){
+            Button("Start new", role:.cancel){
+                pomodoroModel.stopTime()
+                pomodoroModel.addNewTimer = true
+            }
+            Button("Close",role:.destructive){
+                pomodoroModel.stopTime()
+            }
+        }
     }
     //    MARK : new timer botton sheer
     @ViewBuilder // -> MARK: - QUE ES
@@ -131,6 +147,7 @@ struct Home: View {
                     .contextMenu{
                         contextMenuOpt(maxValue: 12, hint: "hr"){ value in
                             pomodoroModel.hour = value
+                            btnActive = true
                         }
                     }
                 Text("\(pomodoroModel.minute) min")
@@ -147,6 +164,7 @@ struct Home: View {
                     .contextMenu{
                         contextMenuOpt(maxValue: 60, hint: "min"){ value in
                             pomodoroModel.minute = value
+                            btnActive = true
                         }
                     }
                 Text("\(pomodoroModel.seconds) sec")
@@ -163,12 +181,13 @@ struct Home: View {
                     .contextMenu{
                         contextMenuOpt(maxValue: 60, hint: "sec"){ value in
                             pomodoroModel.seconds = value
+                            btnActive = true
                         }
                     }
             }
             .padding(.top,20)
             Button{
-                
+                pomodoroModel.startTimer()
             }label: {
                 Text("Save")
                     .font(.title3)
@@ -181,8 +200,8 @@ struct Home: View {
                             .fill(Color("Letras"))
                     }
             }
-            .disabled(pomodoroModel.seconds == 0)
-            .opacity(pomodoroModel.seconds == 0 ? 0.5 : 1)
+            .disabled(!btnActive)
+            .opacity(!btnActive ? 0.5 : 1)
             .padding(.top)
         }
         .padding()
